@@ -60,7 +60,7 @@ public class FirebaseCompanyInfoRepository {
         return "OK " + documentId;
     }
 
-    public String update(CompanyInfo companyInfo) throws ExecutionException, InterruptedException {
+    public String яupdate(CompanyInfo companyInfo) throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> future = firestore.collection("company_info").document(companyInfo.getName()).set(companyInfo);
         return future.get().getUpdateTime().toString();

@@ -10,10 +10,10 @@ import java.util.List;
 @Builder
 public class CompanyInfo {
     private String id;
-    private String name;
-    private String sphere;
-    private String adminEmail;
-    private List<String> clientEmails;
+    public String name;
+    public String sphere;
+    public String adminEmail;
+    public List<String> clientEmails;
 
     public CompanyInfo(String name, String sphere, String adminEmail, List<String> clientEmails) {
         this.name = name;

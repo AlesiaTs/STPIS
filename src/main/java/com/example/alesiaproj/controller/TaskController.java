@@ -23,14 +23,19 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody Task task) {
-        taskService.createTask(task);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-}
+        if (task.title != null && task.dateToComplete != null && task.description != null && task.worker != null && task.workHourCount != 0 && task.status != null) {
+            taskService.createTask(task);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("403 Forbidden message 'can not created' ");//build();
+    }
 
     @PutMapping
     public ResponseEntity update(@RequestBody Task task) {
-        taskService.updateTask(task);
-        return ResponseEntity.ok().build();
+        if (task.title != null && task.dateToComplete != null && task.description != null && task.worker != null && task.workHourCount != 0 && task.status != null) {
+            taskService.updateTask(task);
+            return ResponseEntity.ok().build();
+        }
+        else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("403 Forbidden message 'can not created' ");
     }
 
     @GetMapping("/getById/{id}")

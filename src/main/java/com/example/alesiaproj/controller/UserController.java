@@ -28,8 +28,10 @@ public class UserController {
 
     @PostMapping("/createClient")
     public ResponseEntity createClient(@RequestBody UserInfoDto userInfoDto) {
-        userService.registerUserAsClient(userInfoDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (userInfoDto.userInfo.email != null && userInfoDto.userInfo.name != null && userInfoDto.userInfo.role!= null && userInfoDto.userInfo.position!= null)
+        {userService.registerUserAsClient(userInfoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();}
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("BAD_REQUEST message 'can not created' ");
     }
 
     @PostMapping("/createAdmin")
@@ -39,8 +41,11 @@ public class UserController {
     }
     @PutMapping
     public ResponseEntity updateById(@RequestBody UserInfo userInfo){
-        userService.updateUserById(userInfo);
-        return ResponseEntity.ok().build();
+        if (userInfo.email != null && userInfo.name != null && userInfo.role!= null && userInfo.position!= null) {
+            userService.updateUserById(userInfo);
+            return ResponseEntity.ok().build();
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("BAD_REQUEST message 'can not created' ");
+
     }
     @DeleteMapping("/deleteByEmail/{email}")
     public ResponseEntity deleteByEmail(@PathVariable String email) {

@@ -28,20 +28,28 @@ public class CompanyInfoController {
 
     @PostMapping
     public ResponseEntity create(@RequestBody CompanyInfo companyInfo) {
-        companyInfoService.create(companyInfo);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (companyInfo.name != null && companyInfo.adminEmail != null && companyInfo.sphere != null) {
+            companyInfoService.create(companyInfo);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("204 BAD_REQUEST message 'can not created' ");
     }
 
     @PutMapping
     public ResponseEntity updateByComanyName(@RequestBody CompanyInfo companyInfo) {
-        companyInfoService.update(companyInfo);
-        return ResponseEntity.ok().build();
+        if (companyInfo.name != null && companyInfo.adminEmail != null && companyInfo.sphere != null) {
+            companyInfoService.update(companyInfo);
+            return ResponseEntity.ok().build();
+        }else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("204 BAD_REQUEST message 'can not created' ");
     }
+
     @PutMapping("/updateById")
-    public ResponseEntity updateById(@RequestBody CompanyInfo companyInfo){
+    public ResponseEntity updateById(@RequestBody CompanyInfo companyInfo) {
         companyInfoService.updateById(companyInfo);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/getById/{id}")
     public ResponseEntity<CompanyInfo> getById(@PathVariable String id) {
         Optional<CompanyInfo> companyInfoOptional = companyInfoService.getById(id);
@@ -60,8 +68,9 @@ public class CompanyInfoController {
     public ResponseEntity<List<CompanyInfo>> getAll() {
         return ResponseEntity.ok(companyInfoService.getAll());
     }
+
     @GetMapping("/getByAdminEmail/{adminEmail}")
-    public ResponseEntity<List<CompanyInfo>> getAllByAdminEmail(String email){
-        return ResponseEntity.ok(companyInfoService.getAll().stream().filter(x->x.getAdminEmail().equals(email)).collect(Collectors.toList()));
+    public ResponseEntity<List<CompanyInfo>> getAllByAdminEmail(String email) {
+        return ResponseEntity.ok(companyInfoService.getAll().stream().filter(x -> x.getAdminEmail().equals(email)).collect(Collectors.toList()));
     }
 }

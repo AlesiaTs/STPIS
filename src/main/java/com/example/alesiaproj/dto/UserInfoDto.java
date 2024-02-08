@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserInfoDto {
-    private UserInfo userInfo;
+    public UserInfo userInfo;
     private String companyName;
 }

@@ -8,10 +8,10 @@ import lombok.*;
 @Builder
 public class UserInfo {
     private String id;
-    private String name;
-    private String email;
-    private String position;
-    private String role;
+    public String name;
+    public String email;
+    public String position;
+    public String role;
 
     public UserInfo(String name, String email, String position, String role) {
         this.name = name;
